@@ -30,7 +30,7 @@ async function getAll() {
 
 async function getByAadhar(aadhar) {
   const db = await readDB();
-  return db.find(u => u.aadhar === aadhar) || null;
+  return db.find(u => u.aadhar === aadhar) || false;
 }
 
 async function addUser({ aadhar, address = [], default: isDefault = false, due = 0 }) {
