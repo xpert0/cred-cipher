@@ -141,7 +141,15 @@ async function remAddress(aadhar,addr) {
 }
 
 const server = http.createServer(async (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   try {
+    if (req.method === "OPTIONS") {
+    	res.writeHead(204);
+   	    res.end();
+   	    return;
+    }
     if (req.method !== "POST")
       return respond(res, 405, { error: "POST only" });
     const body = await parseBody(req);
