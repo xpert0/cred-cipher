@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# Hardhat Core & Build Artifacts
+cache/
+artifacts/
+
+# TypeChain (TypeScript bindings)
+typechain/
+typechain-types/
+
+# Coverage reports
+coverage/
+coverage.json
+
+# Hardhat Ignition
+# Ignore local deployments (localhost/hardhat network)
+ignition/deployments/chain-31337/
+# Ignore deployment journals
+ignition/journal/
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+.vscode/
