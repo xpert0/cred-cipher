@@ -6,7 +6,7 @@ node_modules/
 
 # Hardhat Core & Build Artifacts
 cache/
-artifacts/
+# artifacts/
 
 # TypeChain (TypeScript bindings)
 typechain/
