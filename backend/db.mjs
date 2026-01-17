@@ -30,6 +30,7 @@ async function getAll() {
 
 async function getByAadhar(aadhar) {
   const db = await readDB();
+  console.log(db.find(u => u.aadhar === aadhar));
   return db.find(u => u.aadhar === aadhar) || false;
 }
 
