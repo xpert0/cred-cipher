@@ -6,6 +6,12 @@ import { default as wc } from "./credit_js/witness_calculator.js";
 const PORT = 5001;
 
 async function getWalletProfile(address) {
+  // For prototype: mainnet deployment will use the api with valid keys ~@xpert0
+  return {
+    ageScore: Math.min(730 / 365, 5) * 20,
+    txScore: Math.min(200 / 100, 5) * 20,
+    defaultPenalty: Math.min(0 * 10, 50)
+  };
   const API_KEY = "APIKEY";
   const txRes = await fetch(`https://api.etherscan.io/api?module=account&action=txlist&address=${address}&apikey=${API_KEY}`);
   const txData = await txRes.json();
@@ -15,11 +21,6 @@ async function getWalletProfile(address) {
   const walletAgeDays = Math.floor((now - firstTxTime) / 86400);
   const txCount = txs.length;
   const defaults = txs.filter(tx => tx.isError === "1").length;
-  // return {
-  //   walletAgeDays,
-  //   txCount,
-  //   defaults
-  // };
   return {
     ageScore: Math.min(walletAgeDays / 365, 5) * 20,
     txScore: Math.min(txCount / 100, 5) * 20,
@@ -35,11 +36,12 @@ async function computeCreditTier(input) {
   const witness = await witnessCalculator.calculateWitness(input, 0);
   const finalScore = Number(witness[1]);
   let tier;
-  if (finalScore > 400) tier = 2;
-  else if (finalScore > 250) tier = 1;
+  if (finalScore > 400) tier = 3;
+  else if (finalScore > 250) tier = 2;
+  else if (finalScore > 150) tier = 1;
   else tier = 0;
   return {
-    finalScore,
+    score: finalScore,
     tier
   };
 }
@@ -125,14 +127,6 @@ async function auth(aadhar) {
 	return {first:true};
 }
 
-// async function addAddress(aadhar,addr) {
-// 	await db.addAddr(aadhar,addr);
-//   	const res = await db.getByAadhar(aadhar);
-// 	if(await db.getByAadhar(aadhar).address.includes(addr)) return {};
-// 	await db.addAddr({ aadhar });
-// 	return {};
-// }
-
 async function listAddr(aadhar,addr) {
 	return await db.getByAadhar(aadhar).address;
 }
@@ -186,11 +180,15 @@ const server = http.createServer(async (req, res) => {
     if (url.pathname === "/address/add")
       await db.addAddr(body.aadhar,body.addr);
       return respond(res,200,{message:"Address added"});
-      // return respond(res,200,await addAddress(body.aadhar,body.addr));
     if (url.pathname === "/address/rem")
       return respond(res,200,await remAddress(body.aadhar,body.addr));
     if (url.pathname === "/address/list")
       return respond(res,200,await listAddr(body.aadhar));
+    if (url.pathname === "/score")
+      const user = await db.getByAadhar(body.aadhar);
+      const {score,tier} = computeCreditTier(getWalletProfile(user.addr));
+      const aadharHash = crypto.createHash("256").update(aadhar.toString()).digest("hex");
+      return respond(res,200,{aadharHash,score,tier});
     respond(res, 404, { error: "Route not found" });
   } catch (err) {
     respond(res, 400, { error: err.message });
