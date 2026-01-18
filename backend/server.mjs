@@ -1,5 +1,6 @@
 import http from "node:http";
 import { randomUUID } from "node:crypto";
+import crypto from "crypto";
 import db from "./db.mjs";
 import { default as wc } from "./credit_js/witness_calculator.js";
 
