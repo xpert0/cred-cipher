@@ -1,6 +1,7 @@
 import http from "node:http";
 import { randomUUID } from "node:crypto";
 import crypto from "crypto";
+import path from "path";
 import db from "./db.mjs";
 import { default as wc } from "./credit_js/witness_calculator.js";
 
@@ -189,7 +190,7 @@ const server = http.createServer(async (req, res) => {
     if (url.pathname === "/score") {
       const user = await db.getByAadhar(body.aadhar);
       const {score,tier} = computeCreditTier(getWalletProfile(user.addr));
-      const aadharHash = crypto.createHash("256").update(String(aadhar)).digest("hex");
+      const aadharHash = crypto.createHash("256").update(aadhar.toString()).digest("hex");
       return respond(res,200,{aadharHash,score,tier});
     }
     respond(res, 404, { error: "Route not found" });
