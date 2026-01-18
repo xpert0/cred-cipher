@@ -120,8 +120,8 @@ function userRepay(addr, amount) {
 }
 
 async function auth(aadhar) {
-	if(db.getByAadhar(aadhar)) return {first:false};
-  await db.addUser({ aadhar });
+	if(await db.getByAadhar(aadhar)) return {first:false};
+    await db.addUser({ aadhar });
 	return {first:true};
 }
 
