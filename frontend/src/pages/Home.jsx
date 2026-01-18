@@ -96,7 +96,7 @@ const Home = ({ wallet, onConnect }) => {
   drop-shadow-[0_0_20px_rgba(255,255,255,0.15)]
   transition-all duration-300 ease-out]"
             >
-              AURA
+              Cred-Cipher
             </h1>
             <p className="mt-6 text-2xl md:text-3xl text-slate-400 font-light max-w-2xl mx-auto tracking-wide">
               The{" "}

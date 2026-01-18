@@ -6,13 +6,13 @@ const Layout = ({ children, wallet, onConnect, onDisconnect, onSwitchWallet }) =
   return (
     <div className="min-h-screen w-full relative overflow-hidden flex flex-col font-sans">
       
-      {/* BACKGROUND */}
+      
       <div className="fixed inset-0 bg-[#030014] z-0" />
       <div className="fixed inset-0 z-0 opacity-20 pointer-events-none cyber-grid animate-[grid-move_20s_linear_infinite]" />
       <div className="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[120px] animate-pulse-slow pointer-events-none" />
       <div className="fixed bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-cyan-600/20 rounded-full blur-[120px] animate-pulse-slow pointer-events-none" />
 
-      {/* NAVBAR */}
+     {/* {NAVBAR} */}
       <nav className="h-20 flex-none z-[9999] border-b border-white/5 bg-black/20 backdrop-blur-md relative">
         <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
           
@@ -20,10 +20,10 @@ const Layout = ({ children, wallet, onConnect, onDisconnect, onSwitchWallet }) =
             <div className="relative w-10 h-10 flex items-center justify-center">
               <Hexagon className="absolute inset-0 text-cyan-500 animate-spin-slow" strokeWidth={1} />
               <div className="w-6 h-6 bg-cyan-500/20 rounded-full blur-md absolute" />
-              <span className="text-cyan-400 font-bold text-lg relative z-10">A</span>
+              <span className="text-cyan-400 font-bold text-lg relative z-10">C</span>
             </div>
             <span className="text-2xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 group-hover:opacity-80 transition-opacity">
-              AURA
+              Cred-Cipher
             </span>
           </Link>
 

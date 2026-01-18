@@ -235,7 +235,7 @@ const LoginModal = ({ isOpen, onClose, onComplete }) => {
                     1. PROTOCOL USAGE
                   </p>
                   <p className="mb-4">
-                    Accessing the AURA protocol requires binding on-chain
+                    Accessing the  Cred-Cipher requires binding on-chain
                     identity to off-chain reputation markers.
                   </p>
                   <p className="mb-2 text-zinc-300 font-bold">2. ZK-PROOFS</p>
