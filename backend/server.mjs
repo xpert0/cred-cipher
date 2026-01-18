@@ -189,7 +189,7 @@ const server = http.createServer(async (req, res) => {
     if (url.pathname === "/score") {
       const user = await db.getByAadhar(body.aadhar);
       const {score,tier} = computeCreditTier(getWalletProfile(user.addr));
-      const aadharHash = crypto.createHash("256").update(aadhar.toString()).digest("hex");
+      const aadharHash = crypto.createHash("256").update(String(aadhar)).digest("hex");
       return respond(res,200,{aadharHash,score,tier});
     }
     respond(res, 404, { error: "Route not found" });
