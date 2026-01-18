@@ -104,13 +104,10 @@ const Home = ({ wallet, onConnect }) => {
               for Web3.
             </p>
             <div className="text-[#9AA0B3]">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Explicabo hic atque consequatur animi labore dignissimos
-              aspernatur quaerat! Saepe illum aspernatur aut repellendus
-              voluptates magnam! Illo tempore molestiae alias enim odio repellat
-              minima corrupti magni eius dignissimos sit dolore, nemo aliquam
-              veritatis quisquam mollitia cupiditate? A nisi aspernatur
-              consequatur excepturi nulla?
+              It is a privacy-first credit bureau that enables under-collateralised "Buy Now, Pay Later" loans on Web3.
+              It uses Zero-Knowledge (ZK) proofs to verify real-world identity and creditworthiness without ever revealing sensitive personal data.
+              Lenders provide liquidity to earn automated APY, while merchants enjoy instant, fraud-proof transaction settlements on the blockchain.
+              Borrowers access instant credit lines based on their on-chain reputation, bridging the gap between traditional identity and DeFi anonymity.
             </div>
           </div>
 

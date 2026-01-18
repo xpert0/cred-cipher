@@ -10,17 +10,16 @@ import { auravaultfile, auravaultaddress } from "../utils/contract.js"
 const Merchant = ({ wallet }) => {
   const navigate = useNavigate();
   
-  // --- STATE MANAGEMENT ---
+
   const [activeTab, setActiveTab] = useState('verify'); // 'verify' or 'claim'
   const [inputHash, setInputHash] = useState('');
   const [loading, setLoading] = useState(false);
   
-  // Result States
+
   const [verificationResult, setVerificationResult] = useState(null);
   const [claimStatus, setClaimStatus] = useState(null); // 'success', 'error', null
   const [statusMessage, setStatusMessage] = useState('');
 
-  // --- HELPER: GET CONTRACT ---
   const getContract = async (needSigner = false) => {
     if (!window.ethereum) throw new Error("No wallet found");
     const provider = new ethers.BrowserProvider(window.ethereum);
@@ -31,7 +30,7 @@ const Merchant = ({ wallet }) => {
     return new ethers.Contract(auravaultaddress, auravaultfile.abi, provider);
   };
 
-  // --- FUNCTION 1: VERIFY RECEIPT ---
+
   const handleVerify = async () => {
     if (!inputHash) return;
     setLoading(true);
@@ -57,7 +56,7 @@ const Merchant = ({ wallet }) => {
     }
   };
 
-  // --- FUNCTION 2: CLAIM SINGLE RECEIPT ---
+
   const handleClaim = async () => {
     if (!inputHash) return;
     executeClaimTransaction(() => {
@@ -65,14 +64,14 @@ const Merchant = ({ wallet }) => {
     });
   };
 
-  // --- FUNCTION 3: CLAIM ALL (NEW) ---
+
   const handleClaimAll = async () => {
     executeClaimTransaction(() => {
         return getContract(true).then(c => c.claimAll());
     });
   };
 
-  // --- HELPER: SHARED CLAIM LOGIC ---
+
   const executeClaimTransaction = async (transactionFn) => {
     setLoading(true);
     setClaimStatus(null);
@@ -103,7 +102,7 @@ const Merchant = ({ wallet }) => {
 
   return (
     <div className="w-full max-w-xl mx-auto py-12 px-4">
-        {/* Back Button */}
+      
         <button 
           onClick={() => navigate(-1)}
           className="group flex items-center gap-2 text-emerald-500/60 hover:text-emerald-400 mb-8 uppercase text-[10px] font-bold tracking-[0.2em] transition-colors"
@@ -120,7 +119,7 @@ const Merchant = ({ wallet }) => {
         </div>
 
         <GlassCard className="!p-0 overflow-hidden">
-          {/* TABS */}
+          
           <div className="flex border-b border-emerald-500/20">
             <button 
               onClick={() => { setActiveTab('verify'); setVerificationResult(null); setClaimStatus(null); setInputHash(''); }}
@@ -141,7 +140,7 @@ const Merchant = ({ wallet }) => {
 
           <div className="p-8">
             
-            {/* --- VERIFY TAB CONTENT --- */}
+       
             {activeTab === 'verify' && (
                 <>
                     <div className="relative mb-6">
@@ -165,10 +164,10 @@ const Merchant = ({ wallet }) => {
                 </>
             )}
 
-            {/* --- CLAIM TAB CONTENT --- */}
+        
             {activeTab === 'claim' && (
                 <div className="space-y-8">
-                    {/* Option A: Single Claim */}
+                
                     <div>
                         <div className="flex items-center gap-2 mb-4 text-emerald-500/60 text-[10px] font-bold uppercase tracking-widest">
                             <span className="w-6 h-[1px] bg-emerald-500/30"></span> Option A: Single Receipt
@@ -191,7 +190,7 @@ const Merchant = ({ wallet }) => {
                         </div>
                     </div>
 
-                    {/* Option B: Claim All */}
+              
                     <div>
                          <div className="flex items-center gap-2 mb-4 text-emerald-500/60 text-[10px] font-bold uppercase tracking-widest">
                             <span className="w-6 h-[1px] bg-emerald-500/30"></span> Option B: Bulk Settlement
@@ -214,7 +213,7 @@ const Merchant = ({ wallet }) => {
                 </div>
             )}
 
-            {/* --- DISPLAY: VERIFICATION RESULTS --- */}
+       
             {activeTab === 'verify' && verificationResult && (
               <div className="mt-8 animate-in fade-in slide-in-from-bottom-2">
                 {verificationResult.isValid ? (
@@ -249,7 +248,7 @@ const Merchant = ({ wallet }) => {
               </div>
             )}
 
-            {/* --- DISPLAY: CLAIM RESULTS --- */}
+          
             {activeTab === 'claim' && claimStatus && (
               <div className="mt-8 animate-in fade-in slide-in-from-bottom-2">
                 <div className={`p-5 border rounded-xl flex flex-col gap-2 ${claimStatus === 'success' ? 'border-emerald-500/30 bg-emerald-500/10' : 'border-red-500/30 bg-red-500/10'}`}>

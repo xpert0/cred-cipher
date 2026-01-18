@@ -19,20 +19,20 @@ const fetchDueAmount = async (walletAddress) => {
 const Borrower = ({ wallet }) => {
   const navigate = useNavigate();
 
-  // --- STATE ---
+  
   const [activeTab, setActiveTab] = useState("borrow"); // 'borrow' | 'repay'
   const [loading, setLoading] = useState(false);
   
-  // Data Inputs
+  
   const [merchantId, setMerchantId] = useState("");
   const [amount, setAmount] = useState("");
   const [dueAmount, setDueAmount] = useState("0.00");
 
-  // Feedback State
+  
   const [status, setStatus] = useState({ type: "", message: "" }); // type: 'success' | 'error' | 'info'
   const [receiptHash, setReceiptHash] = useState(null);
 
-  // --- LOAD DATA ---
+ 
   useEffect(() => {
     const loadData = async () => {
       if (wallet) {
@@ -43,13 +43,13 @@ const Borrower = ({ wallet }) => {
     loadData();
   }, [wallet]);
 
-  // --- HELPER: RESET UI ---
+  
   const clearForm = () => {
     setStatus({ type: "", message: "" });
     setReceiptHash(null);
   };
 
-  // --- ACTION: BORROW (LOCK FUNDS) ---
+  
   const handleExecute = async () => {
     if (!amount || !merchantId) return;
     setLoading(true);
@@ -127,7 +127,7 @@ const Borrower = ({ wallet }) => {
       setStatus({ type: "success", message: "Repayment successful! Balance updated." });
       setAmount("");
       
-      // Update dummy due amount for UI effect
+      
       setDueAmount((prev) => (parseFloat(prev) - parseFloat(amount)).toFixed(2));
 
     } catch (error) {
@@ -152,14 +152,14 @@ const Borrower = ({ wallet }) => {
         Return
       </button>
 
-      {/* Header */}
+
       <div className="flex justify-between items-end mb-6">
           <div>
             <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-red-600 mb-1">BORROWER</h2>
             <p className="text-xs text-rose-400/60 font-mono tracking-widest">CREDIT & REPAYMENT</p>
           </div>
           
-          {/* Due Amount Badge */}
+       
           <div className="text-right">
              <p className="text-[10px] text-rose-300/70 uppercase font-bold tracking-wider mb-1">Current Due</p>
              <div className="bg-rose-950/30 border border-rose-500/30 px-4 py-2 rounded-lg">
@@ -170,7 +170,7 @@ const Borrower = ({ wallet }) => {
 
       <GlassCard className="!p-0 overflow-hidden">
         
-        {/* TABS */}
+       
         <div className="flex border-b border-rose-500/20">
             <button 
               onClick={() => { setActiveTab("borrow"); clearForm(); }}
@@ -191,7 +191,7 @@ const Borrower = ({ wallet }) => {
 
         <div className="p-8">
           
-          {/* --- TAB 1: BORROW / EXECUTE --- */}
+
           {activeTab === "borrow" && (
             <div className="space-y-6">
                 <Input
@@ -222,7 +222,7 @@ const Borrower = ({ wallet }) => {
             </div>
           )}
 
-          {/* --- TAB 2: REPAY --- */}
+ 
           {activeTab === "repay" && (
             <div className="space-y-6">
                 <div className="p-4 bg-rose-500/5 border border-rose-500/20 rounded-xl mb-4">
@@ -253,7 +253,7 @@ const Borrower = ({ wallet }) => {
             </div>
           )}
 
-          {/* --- STATUS MESSAGES --- */}
+          {/* --- STATUS MESSAGE --- */}
           {status.message && (
              <div className={`mt-6 p-4 rounded-xl border flex items-start gap-3 animate-in fade-in slide-in-from-bottom-2
                 ${status.type === 'error' ? 'bg-red-500/10 border-red-500/30 text-red-400' : 
@@ -269,7 +269,7 @@ const Borrower = ({ wallet }) => {
              </div>
           )}
 
-          {/* --- RECEIPT DISPLAY (Only on Success) --- */}
+          {/* --- RECEIPT  --- */}
           {receiptHash && (
              <div className="mt-4 p-5 bg-black/40 border border-rose-500/30 rounded-xl">
                  <p className="text-[10px] text-rose-400 uppercase font-bold tracking-widest mb-3">Transaction Receipt</p>

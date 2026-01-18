@@ -10,24 +10,24 @@ const Lender = ({ wallet }) => {
   const navigate = useNavigate();
   const [amount, setAmount] = useState('');
   
-  // Stats State
+  
   const [myBalance, setMyBalance] = useState(0);
   const [globalPool, setGlobalPool] = useState(0);
   
-  // UI State
+
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // --- 1. LOAD DATA FROM BLOCKCHAIN ---
+
   const loadData = async () => {
       if (!wallet || !window.ethereum) return;
 
       try {
           const provider = new ethers.BrowserProvider(window.ethereum);
-          // We only need a provider (read-only) to fetch balances
+          
           const vaultContract = new ethers.Contract(auravaultaddress, auravaultfile.abi, provider);
 
-          // Fetch both values in parallel
+  
           const [myPosition, tvl] = await Promise.all([
               vaultContract.lenderBalances(wallet),
               vaultContract.totalLent()
@@ -42,17 +42,17 @@ const Lender = ({ wallet }) => {
       }
   };
 
-  // Initial Load
+
   useEffect(() => {
     loadData();
     
-    // Optional: Poll for updates every 10 seconds (useful for live dashboards)
+    
     const interval = setInterval(loadData, 10000);
     return () => clearInterval(interval);
   }, [wallet]);
 
 
-  // --- 2. PROVIDE LIQUIDITY ---
+
   const handleProvide = async () => {
     if (!amount || !wallet) return;
     setLoading(true);
@@ -164,7 +164,7 @@ const Lender = ({ wallet }) => {
 
         <GlassCard className="!p-10">
           
-          {/* Stats Row */}
+          
           <div className="grid grid-cols-2 gap-6 mb-10">
             <div className="relative group p-6 rounded-2xl bg-black/40 border border-cyan-500/20 overflow-hidden">
               <div className="absolute inset-0 bg-cyan-500/5 group-hover:bg-cyan-500/10 transition-colors" />
