@@ -2,6 +2,7 @@ import http from "node:http";
 import { randomUUID } from "node:crypto";
 import crypto from "crypto";
 import path from "path";
+import { fileURLToPath } from "url";
 import db from "./db.mjs";
 import { default as wc } from "./credit_js/witness_calculator.js";
 
